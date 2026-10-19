@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"srinivas_transit","Source":"git::https://github.com/Srinivasaraokoniden/vault-transit.git?ref=v1.0.0","Dir":".terraform/modules/srinivas_transit"}]}

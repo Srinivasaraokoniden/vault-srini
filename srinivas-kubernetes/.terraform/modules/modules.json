@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"tenant_kv","Source":"../vault-kv-kubernetes","Dir":"../vault-kv-kubernetes"}]}

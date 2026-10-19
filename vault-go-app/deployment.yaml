@@ -1,0 +1,53 @@
+
+# 1. Create application namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: srinivas-app
+---
+# 2. Create ServiceAccount for Vault Kubernetes auth
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: srinivas-app
+  namespace: srinivas-app
+automountServiceAccountToken: true
+---
+# 3. Deploy the Go application
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vault-go-app
+  namespace: srinivas-app
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: vault-go-app
+
+  template:
+    metadata:
+      labels:
+        app: vault-go-app
+
+    spec:
+      serviceAccountName: srinivas-app
+      automountServiceAccountToken: true
+
+      containers:
+        - name: vault-go-app
+          image: vault-go:local
+          imagePullPolicy: IfNotPresent
+
+          env:
+            - name: VAULT_ADDR
+              value: "http://vault.vault.svc.cluster.local:8200"
+
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "250m"
+              memory: "128Mi"
